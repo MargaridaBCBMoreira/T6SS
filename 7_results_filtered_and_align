@@ -1,0 +1,95 @@
+# Step 7. Extract hit sequneces from metagenome faa data (as single metagenome fasta per metagenome dataset)
+# Path to metagenome data
+ELLEGAARD_2019="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Ellegaard_2019"
+ELLEGAARD_2020="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Ellegaard_2020"
+J_WU_2021="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/J_Wu_2021"
+Y_WU_2021="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Y_Wu_2021"
+Q_SU_2022="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Q_Su_2022"
+
+META_HITS_OUTPUTS="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenomes_Rhs_hmmer_hits_sequences"
+META_DATA="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data"
+
+METAGENOMES_DATA=(
+    "$ELLEGAARD_2019"
+    "$ELLEGAARD_2020"
+    "$J_WU_2021"
+    "$Y_WU_2021"
+    "$Q_SU_2022"
+)
+
+for FOLDER in "${METAGENOMES_DATA[@]}"; do
+    DIR_NAME=$(basename "$FOLDER")
+     HITS_INPUTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenomes_Rhs_hmmer_hits/${DIR_NAME}"
+
+    cd "$HITS_INPUTS_DIR"
+        for HITS_TXT in $(ls *.txt); do
+            SRR=${HITS_TXT%_Rhs_assc_core_hmmer_hits.txt}
+
+            #awk '/^#/ {next} {print $1}' "$HITS_TXT" | sort | uniq > "${SRR}_Rhs_assc_core_hmmer_hits_accessions.txt"
+        done
+    cd ..
+done
+
+for FOLDER in "${METAGENOMES_DATA[@]}"; do
+    DIR_NAME=$(basename "$FOLDER")
+    HITS_INPUTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenomes_Rhs_hmmer_hits/${DIR_NAME}"
+
+    cd "$HITS_INPUTS_DIR"
+        for HITS_TXT in $(ls *_Rhs_assc_core_hmmer_hits_accessions.txt); do
+            SRR=${HITS_TXT%_Rhs_assc_core_hmmer_hits_accessions.txt}
+
+            awk '/^#/ {next} {print $1}' "$HITS_TXT" | sort | uniq > "${SRR}_Rhs_assc_core_hmmer_hits_accessions.txt"
+            seqtk seq -a "/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/${DIR_NAME}/${SRR}.faa" > "${SRR}_temp_sequences.fasta"
+
+            grep -A 1 -Ff "$HITS_TXT" \
+            "${SRR}_temp_sequences.fasta" > "${META_HITS_OUTPUTS}/${DIR_NAME}/${SRR}_Rhs_assc_core_hmmer_hits.faa"
+            rm "${SRR}_temp_sequences.fasta"
+           seqkit grep -f "$HITS_TXT" "${META_DATA}/${DIR_NAME}/${SRR}.faa" -o "${META_HITS_OUTPUTS}/${DIR_NAME}/${SRR}_Rhs_assc_core_hmmer_hits.faa"
+        done
+     cd ..
+done
+
+
+#Step 7b: Extract hit sequneces from metagenome faa data (as single metagenome fasta per metagenome dataset) with  the DPxG domain of the Rhs family protein
+# Path to metagenome data
+ELLEGAARD_2019="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Ellegaard_2019"
+ELLEGAARD_2020="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Ellegaard_2020"
+J_WU_2021="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/J_Wu_2021"
+Y_WU_2021="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Y_Wu_2021"
+Q_SU_2022="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenome_Data/Q_Su_2022"
+
+FILTERED_OUTPUT="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenomes_Rhs_hmmer_hits_sequences_filtered-DPxG18DPxG"
+
+METAGENOMES_DATA=(
+    "$ELLEGAARD_2019"
+    "$ELLEGAARD_2020"
+    "$J_WU_2021"
+    "$Y_WU_2021"
+    "$Q_SU_2022"
+)
+
+for FOLDER in "${METAGENOMES_DATA[@]}"; do
+    DIR_NAME=$(basename "$FOLDER")
+    HITS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Metagenomes_Rhs_hmmer_hits_sequences/${DIR_NAME}"
+
+    cd "$HITS_DIR"
+        for HITS_FAA in $(ls *_Rhs_assc_core_hmmer_hits.faa); do
+            SRR=${HITS_FAA%_Rhs_assc_core_hmmer_hits.faa}
+
+            cat "$HITS_FAA" | seqkit grep -s -r -p DP.G.{18}DP.G > "${FILTERED_OUTPUT}/${DIR_NAME}/${SRR}_Rhs_assc_core_hmmer_hits.faa"
+        done
+    cd ..
+done
+
+
+#Step 9: Combine filtered hit sequences from each metagenpome dataset as single file per metagenome dataset
+
+
+# Step 10: MSA with muscle each combined sequence fasta
+cd "/media/share/MGS/VM_data/mmoreira/Projects/Characterising_RHS_toxins/RHS_toxins_in_metagenomes/Discovery_phase_new_potetial_RHS_toxins/Metagenomes_Rhs_hmmer_hits_sequences_filtered-DPxG18DPxG"
+    muscle -align Ellegaard_2019_combined_filtered-DPxG18DPxG.faa -output Ellegaard_2019_combined_filtered-DPxG18DPxG.afa
+    muscle -align Ellegaard_2020_combined_filtered-DPxG18DPxG.faa -output Ellegaard_2020_combined_filtered-DPxG18DPxG.afa
+    muscle -super5 J_Wu_2021_combined_filtered-DPxG18DPxG.faa -output J_Wu_2021_combined_filtered-DPxG18DPxG.afa
+    muscle -align Q_Su_2022_combined_filtered-DPxG18DPxG.faa -output Q_Su_2022_combined_filtered-DPxG18DPxG.afa
+    muscle -super5 Y_Wu_2021_combined_filtered-DPxG18DPxG.faa -output Y_Wu_2021_combined_filtered-DPxG18DPxG.afa
+cd ..
