@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Diretórios
+COMBINED_HMM_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/5_bees_core_base_with_tigr/Rhs_core_database_bees"
+METAGENOME_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Metagenome_data"
+RESULTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/6_hmmer_metagenome_with_genomes_of_bees_v2"
+
+# Criar diretório principal de resultados, se não existir
+mkdir -p "$RESULTS_DIR"
+
+# Iterar pelos perfis combinados (um por genoma)
+for hmm_profile in "$COMBINED_HMM_DIR"/*.hmm; do
+    # Extrair o nome do genoma baseado no perfil HMM
+    genome_name=$(basename "$hmm_profile" .hmm)
+
+    # Criar uma subpasta para o genoma dentro do diretório de resultados
+    genome_results_dir="$RESULTS_DIR/$genome_name"
+    mkdir -p "$genome_results_dir"
+
+    # Encontrar todos os arquivos .faa em todas as subpastas
+    find "$METAGENOME_DIR" -type f -name "*.faa" | while read -r metagenome_file; do
+        # Extrair o nome do metagenoma (com base no arquivo)
+        metagenome_name=$(basename "$metagenome_file" .faa)
+
+        # Criar subdiretório específico para o metagenoma dentro do genoma
+        metagenome_results_dir="$genome_results_dir/$metagenome_name"
+        mkdir -p "$metagenome_results_dir"
+
+        # Arquivo de saída para os hits
+        output_file="$metagenome_results_dir/${metagenome_name}_hits.txt"
+
+        # Executar hmmsearch
+        hmmsearch --tblout "$output_file" "$hmm_profile" "$metagenome_file"
+
+        # Exibir progresso
+        echo "Busca concluída: $genome_name -> $metagenome_name"
+    done
+done
+
+# Confirmação final
+echo "Buscas HMMER concluídas. Resultados armazenados em $RESULTS_DIR."
