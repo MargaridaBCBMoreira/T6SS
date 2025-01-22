@@ -1,0 +1,76 @@
+# #!/bin/bash
+
+# # Diretórios de entrada e saída
+# HITS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/filtered_hits"
+# FASTA_DIR_BASE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data"
+# OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/filtered_sequences"
+
+# mkdir -p "$OUTPUT_DIR"
+
+# # Iterar sobre cada arquivo de hits filtrados
+# for hits_file in "$HITS_DIR"/*.txt; do
+#   BASE_NAME=$(basename "$hits_file" _filtered_hits.txt)
+#   FASTA_DIR="$FASTA_DIR_BASE/$BASE_NAME"
+#   OUTPUT_FASTA="${OUTPUT_DIR}/${BASE_NAME}_filtered_hit_sequences.fasta"
+
+#   > "$OUTPUT_FASTA"
+
+#   if [ -d "$FASTA_DIR" ]; then
+#  # Para cada arquivo .faa correspondente
+#     for faa_file in "$FASTA_DIR"/*.faa; do
+#       # Ler os IDs de proteína do arquivo de hits (a partir da 3ª linha)
+#       awk 'NR >= 3 {print $1}' "$hits_file" | while read -r protein_id; do
+#         # Extrair a sequência completa da proteína (do identificador até o próximo '>')
+#         awk -v id="$protein_id" '
+#           BEGIN {found=0} 
+#           /^>/ {
+#             if (found) exit; 
+#             if ($0 ~ ">" id) found=1 
+#           } 
+#           found {print}
+#         ' "$faa_file" >> "$OUTPUT_FASTA"
+#       done
+#     done
+#     # Para cada arquivo .faa correspondente
+#     # Verificar se alguma sequência foi extraída
+#     if [ -s "$OUTPUT_FASTA" ]; then
+#       echo "Sequências extraídas e salvas para $BASE_NAME em $OUTPUT_FASTA"
+#     else
+#       echo "ERRO: Nenhuma sequência extraída para $BASE_NAME. Verifique os IDs."
+#     fi
+#   else
+#     echo "Diretório $FASTA_DIR não encontrado. Pulando $BASE_NAME."
+#   fi
+# done
+
+#!/bin/bash
+
+# Diretórios de entrada e saída
+FILTERED_SEQUENCES_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences_evalue_DPxG"
+ALIGNMENTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filtterd_hit_sequences"
+
+# Cria o diretório de alinhamentos, se não existir
+mkdir -p "$ALIGNMENTS_DIR"
+
+# Alinhar cada arquivo .fasta no diretório de sequências filtradas
+for fasta_file in "$FILTERED_SEQUENCES_DIR"/*.fasta; do
+    if [ -f "$fasta_file" ]; then
+        # Nome base do arquivo (sem extensão)
+        base_name=$(basename "$fasta_file" .fasta)
+
+        # Caminho do arquivo de saída
+        alignment_file="$ALIGNMENTS_DIR/${base_name}_alignment.afa"
+
+        # Executa o alinhamento com muscle
+        echo "Alinhando $fasta_file..."
+        muscle -in "$fasta_file" -out "$alignment_file"
+
+        if [ $? -eq 0 ]; then
+            echo "Alinhamento de $fasta_file salvo em $alignment_file"
+        else
+            echo "Erro ao alinhar $fasta_file"
+        fi
+    else
+        echo "Nenhum arquivo .fasta encontrado em $FILTERED_SEQUENCES_DIR"
+    fi
+done
