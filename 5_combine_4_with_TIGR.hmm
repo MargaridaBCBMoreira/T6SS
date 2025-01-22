@@ -1,0 +1,55 @@
+# #!/bin/bash
+#this one is if i want to do a hmmer for each one of the aligments
+# # Diretórios
+# TIGR_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
+# OUTDIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Rhs_core_database"
+
+# # Perfis HMM individuais
+# PROTEIN_DATA=(
+#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Gilliamella_DPxG_filtered_alignment.hmm"
+#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Frischella_DPxG_filtered_alignment.hmm"
+#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Snodgrassella_DPxG_filtered_alignment.hmm"
+# )
+
+# # Criar o diretório de saída, se ainda não existir
+# mkdir -p "$OUTDIR"
+
+# # Combinar TIGR03696 com cada perfil HMM individual
+# for hmm_file in "${PROTEIN_DATA[@]}"; do
+#     # Extrair o nome base do genoma
+#     genome_name=$(basename "$hmm_file" | sed 's/_filtered_hit_sequences_alignment\.hmm//')
+
+#     # Nome do arquivo combinado para este genoma
+#     combined_profile="$OUTDIR/${genome_name}_combined_with_TIGR03696.hmm"
+
+#     # Combinar os dois perfis HMM
+#     cat "$TIGR_PROFILE" "$hmm_file" > "$combined_profile"
+#     echo "Criado o perfil combinado para $genome_name: $combined_profile"
+
+#     # Processar com hmmpress
+#     hmmpress "$combined_profile"
+#     echo "Banco de dados HMM para $genome_name gerado: $combined_profile"
+# done
+
+# # Confirmação final
+# echo "Perfis combinados gerados para cada genoma em $OUTDIR."
+
+
+#this one is the aligment with the file contaning the hmmer of all aligments
+#!/bin/bash
+
+# Caminhos para os arquivos HMM
+HMM_PROFILE1="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_filterd_sequence/combined_alignment.hmm"
+TIGR_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
+COMBINED_HMM_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/5_bee_core_base_with_tigr/Rhs_core_database_bees"
+
+# Criar o arquivo combinado HMM
+cat "$HMM_PROFILE1" "$TIGR_PROFILE" > "$COMBINED_HMM_PROFILE"
+
+# Verificar se o arquivo combinado foi criado corretamente
+if [ -f "$COMBINED_HMM_PROFILE" ]; then
+    echo "Perfis HMM combinados com sucesso: $COMBINED_HMM_PROFILE"
+else
+    echo "Erro ao combinar os perfis HMM"
+    exit 1
+fi
