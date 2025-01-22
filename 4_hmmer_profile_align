@@ -1,0 +1,85 @@
+#!/bin/bash
+
+#this one is for hmmer profile for each one of the aligments
+# Diretório contendo os alinhamentos
+# ALIGNMENT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filterd_hit_sequences"
+# OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_filterd_sequence"
+
+# mkdir -p "$OUTPUT_DIR"
+
+# # Iterar sobre cada arquivo de alinhamento no diretório
+# for alignment_file in "$ALIGNMENT_DIR"/*.afa; do
+#   BASE_NAME=$(basename "$alignment_file" .afa)
+#   HMM_PROFILE="${OUTPUT_DIR}/${BASE_NAME}.hmm"
+
+#   # Criar o perfil HMM usando hmmbuild
+#   hmmbuild "$HMM_PROFILE" "$alignment_file"
+
+#   if [ $? -eq 0 ]; then
+#     echo "Perfil HMM criado com sucesso: $HMM_PROFILE"
+#   else
+#     echo "ERRO ao criar o perfil HMM para $alignment_file"
+#   fi
+# done
+
+
+#this one is one single hmmer profile with all the aligments
+#!/bin/bash
+#!/bin/bash
+
+# Diretórios de entrada e saída
+FILTERED_SEQUENCES_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences_evalue_DPxG"
+ALIGNMENTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filterd_hit_sequences"
+COMBINED_SEQUENCES_FILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/combined_sequences.fasta"
+COMBINED_ALIGNMENT_FILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/combined_alignment.afa"
+OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_all_filterd_sequence"
+
+# Cria os diretórios necessários se não existirem
+mkdir -p "$ALIGNMENTS_DIR"
+mkdir -p "$OUTPUT_DIR"
+
+# # Limpar ou criar o arquivo de sequências combinadas
+# > "$COMBINED_SEQUENCES_FILE"
+
+# # Juntar todos os arquivos .fasta em um só arquivo combinado
+# for fasta_file in "$FILTERED_SEQUENCES_DIR"/*.fasta; do
+#     if [ -f "$fasta_file" ]; then
+#         # Adicionar o conteúdo de cada arquivo de sequência ao arquivo combinado
+#         cat "$fasta_file" >> "$COMBINED_SEQUENCES_FILE"
+#         echo "" >> "$COMBINED_SEQUENCES_FILE"  # Adiciona uma linha em branco para separação
+#     else
+#         echo "Nenhum arquivo .fasta encontrado em $FILTERED_SEQUENCES_DIR"
+#     fi
+# done
+
+# # Verifique se o arquivo combinado foi criado corretamente
+# if [ ! -f "$COMBINED_SEQUENCES_FILE" ]; then
+#     echo "Erro: o arquivo de sequências combinadas não foi criado."
+#     exit 1
+# fi
+
+# echo "Sequências combinadas salvas em $COMBINED_SEQUENCES_FILE"
+
+# # Alinhar as sequências combinadas com MUSCLE
+# echo "Alinhando as sequências combinadas..."
+# muscle -in "$COMBINED_SEQUENCES_FILE" -out "$COMBINED_ALIGNMENT_FILE"
+
+# if [ $? -eq 0 ]; then
+#     echo "Alinhamento combinado de todas as sequências salvo em $COMBINED_ALIGNMENT_FILE"
+# else
+#     echo "Erro ao alinhar as sequências combinadas"
+#     exit 1
+# fi
+
+# Criar o perfil HMM a partir do alinhamento combinado
+HMM_PROFILE="${OUTPUT_DIR}/combined_alignment.hmm"
+
+echo "Criando perfil HMM para o alinhamento combinado..."
+hmmbuild "$HMM_PROFILE" "$COMBINED_ALIGNMENT_FILE"
+
+if [ $? -eq 0 ]; then
+    echo "Perfil HMM criado com sucesso: $HMM_PROFILE"
+else
+    echo "Erro ao criar o perfil HMM para o alinhamento combinado"
+    exit 1
+fi
