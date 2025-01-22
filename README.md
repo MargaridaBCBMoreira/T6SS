@@ -5,6 +5,9 @@ Project Overview - This project focuses on the identification and characterizati
 The workflow is divided into six sequential scripts, each corresponding to a key step in the analysis pipeline.
 
 Step 1: HMMER Search on Reference Genomes - Run HMMER searches on the protein sequences of reference genomes using the TIG_HMM_PROFILE, which is specific to Rhs core domains.This step identifies candidate sequences containing the Rhs core domain.
+# Download Rhs core hmmer profile - TIGR03696n pelo link https://www.ebi.ac.uk/interpro/search/text/
+# Download genomics proteins and cds data from the genomic_genBank
+
 Step 2: Filtering HMMER Hits - Extract hits from the HMMER results with an e-value threshold of ≤ 1e-15 for further analysis.
 Step 3: Alignment of Filtered Hit Sequences - Perform multiple sequence alignment (MSA) for the filtered sequences from each genome separately. This step ensures that conserved regions are identified and helps in building high-quality profiles.
 Step 4: Building HMMER Profiles - Generate HMM profiles from the alignments created in Step 3 for each genome. These profiles represent genome-specific Rhs domain patterns.
