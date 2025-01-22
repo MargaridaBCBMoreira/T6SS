@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+
+# # Definindo caminhos para todos os genomas
+# TIG_HMM_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
+
+# # Hmmer on genomes
+# APIBACTER_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Apibacter"
+# GILLIAMELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Gilliamella"
+# FRISCHELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Frischella"
+# SNODGRASSELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Snodgrassella"
+
+# OUTDIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes"
+
+# PROTEIN_DATA=(
+#     "$APIBACTER_DIR"
+#     "$GILLIAMELLA_DIR"
+#     "$FRISCHELLA_DIR"
+#     "$SNODGRASSELLA_DIR"
+# )
+
+# # Hmmer hits of Rhs core domain in genomes
+# for FOLDER in "${PROTEIN_DATA[@]}"; do
+#       DIR_NAME=$(basename "$FOLDER")
+#       mkdir "${OUTDIR}/${DIR_NAME}"
+
+#       cd "$FOLDER"
+#           for PROT_FILE in $(ls *.faa)
+#           do
+#               STRAIN_NAME=${PROT_FILE%.faa}
+#               hmmsearch --tblout "${OUTDIR}/${DIR_NAME}/${STRAIN_NAME}_Rhs_assc_core_hmmer_hits.txt" "$TIG_HMM_PROFILE" "$PROT_FILE"
+#           done
+#       cd ..
+# done
