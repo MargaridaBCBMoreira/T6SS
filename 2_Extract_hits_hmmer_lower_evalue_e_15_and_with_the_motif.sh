@@ -1,10 +1,10 @@
 # #!/bin/bash
 
 # # Directories for genomic data
-# APIBACTER_HITS="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes/Apibacter"
-# GILLIAMELLA_HITS="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes/Gilliamella"
-# FRISCHELLA_HITS="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes/Frischella"
-# SNODGRASSELLA_HITS="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes/Snodgrassella"
+# APIBACTER_HITS="Path_to_Hmmer_hits_genomes/Apibacter"
+# GILLIAMELLA_HITS="Path_to_Hmmer_hits_genomes/Gilliamella"
+# FRISCHELLA_HITS="Path_to_Hmmer_hits_genomes/Frischella"
+# SNODGRASSELLA_HITS="Path_to_Hmmer_hits_genomes/Snodgrassella"
 
 # # Array of directories
 # BASE_DIR=(
@@ -15,7 +15,7 @@
 # )
 
 # # Output directory for filtered hits
-# OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/filtered_hits"
+# OUTPUT_DIR="Path_to_filtered_hits"
 # mkdir -p "$OUTPUT_DIR"
 
 # # Iterate through each directory
@@ -50,8 +50,8 @@
 #!/bin/bash
 
 # Caminhos
-INPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences"
-FILTERED_OUTPUT="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences_evalue_DPxG"
+INPUT_DIR="Path_to_2_filtered_sequences"
+FILTERED_OUTPUT="Path_to_2_filtered_sequences_evalue_DPxG"
 
 # Criar diretório de saída, se não existir
 mkdir -p "$FILTERED_OUTPUT"
