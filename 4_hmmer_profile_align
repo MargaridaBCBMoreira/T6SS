@@ -2,8 +2,8 @@
 
 #this one is for hmmer profile for each one of the aligments
 # Diretório contendo os alinhamentos
-# ALIGNMENT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filterd_hit_sequences"
-# OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_filterd_sequence"
+# ALIGNMENT_DIR="Path_to_3_alignments_of_filterd_hit_sequences"
+# OUTPUT_DIR="Path_to_4_hmmer_profiles_from_filterd_sequence"
 
 # mkdir -p "$OUTPUT_DIR"
 
@@ -28,11 +28,11 @@
 #!/bin/bash
 
 # Diretórios de entrada e saída
-FILTERED_SEQUENCES_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences_evalue_DPxG"
-ALIGNMENTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filterd_hit_sequences"
-COMBINED_SEQUENCES_FILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/combined_sequences.fasta"
-COMBINED_ALIGNMENT_FILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/combined_alignment.afa"
-OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_all_filterd_sequence"
+FILTERED_SEQUENCES_DIR="Path_to_2_filtered_sequences_evalue_DPxG"
+ALIGNMENTS_DIR="Path_to_3_alignments_of_filterd_hit_sequences"
+COMBINED_SEQUENCES_FILE="Path_to_combined_sequences.fasta"
+COMBINED_ALIGNMENT_FILE="Path_to_combined_alignment.afa"
+OUTPUT_DIR="Path_to_4_hmmer_profiles_from_all_filterd_sequence"
 
 # Cria os diretórios necessários se não existirem
 mkdir -p "$ALIGNMENTS_DIR"
