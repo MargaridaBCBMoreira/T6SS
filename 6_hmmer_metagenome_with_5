@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Diretórios
-COMBINED_HMM_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/5_bees_core_base_with_tigr/Rhs_core_database_bees"
-METAGENOME_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Metagenome_data"
-RESULTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/6_hmmer_metagenome_with_genomes_of_bees_v2"
+COMBINED_HMM_DIR="Path_to_5_bees_core_base_with_tigr/Rhs_core_database_bees"
+METAGENOME_DIR="Path_to_Metagenome_data"
+RESULTS_DIR="Path_to_6_hmmer_metagenome_with_genomes_of_bees_v2"
 
 # Criar diretório principal de resultados, se não existir
 mkdir -p "$RESULTS_DIR"
