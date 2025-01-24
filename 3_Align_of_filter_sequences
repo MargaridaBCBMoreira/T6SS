@@ -1,9 +1,9 @@
 # #!/bin/bash
 
 # # Diretórios de entrada e saída
-# HITS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/filtered_hits"
-# FASTA_DIR_BASE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data"
-# OUTPUT_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/filtered_sequences"
+# HITS_DIR="Path_to_filtered_hits"
+# FASTA_DIR_BASE="Path_to_Genomic_data"
+# OUTPUT_DIR="Path_to_filtered_sequences"
 
 # mkdir -p "$OUTPUT_DIR"
 
