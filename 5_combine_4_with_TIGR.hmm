@@ -1,14 +1,14 @@
 # #!/bin/bash
 #this one is if i want to do a hmmer for each one of the aligments
 # # Diretórios
-# TIGR_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
-# OUTDIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Rhs_core_database"
+# TIGR_PROFILE="Path_to_Hmmer_profile/TIGR03696.hmm"
+# OUTDIR="Path_to_Rhs_core_database"
 
 # # Perfis HMM individuais
 # PROTEIN_DATA=(
-#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Gilliamella_DPxG_filtered_alignment.hmm"
-#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Frischella_DPxG_filtered_alignment.hmm"
-#     "/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/hmmer_profiles_from_filterd_sequence/Snodgrassella_DPxG_filtered_alignment.hmm"
+#     "Path_to_hmmer_profiles_from_filterd_sequence/Gilliamella_DPxG_filtered_alignment.hmm"
+#     "Path_to_hmmer_profiles_from_filterd_sequence/Frischella_DPxG_filtered_alignment.hmm"
+#     "Path_to_hmmer_profiles_from_filterd_sequence/Snodgrassella_DPxG_filtered_alignment.hmm"
 # )
 
 # # Criar o diretório de saída, se ainda não existir
@@ -39,9 +39,9 @@
 #!/bin/bash
 
 # Caminhos para os arquivos HMM
-HMM_PROFILE1="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/4_hmmer_profiles_from_filterd_sequence/combined_alignment.hmm"
-TIGR_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
-COMBINED_HMM_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/5_bee_core_base_with_tigr/Rhs_core_database_bees"
+HMM_PROFILE1="Path_to_4_hmmer_profiles_from_filterd_sequence/combined_alignment.hmm"
+TIGR_PROFILE="Path_to_Hmmer_profile/TIGR03696.hmm"
+COMBINED_HMM_PROFILE="Path_to_5_bee_core_base_with_tigr/Rhs_core_database_bees"
 
 # Criar o arquivo combinado HMM
 cat "$HMM_PROFILE1" "$TIGR_PROFILE" > "$COMBINED_HMM_PROFILE"
