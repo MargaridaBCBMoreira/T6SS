@@ -46,8 +46,8 @@
 #!/bin/bash
 
 # Diretórios de entrada e saída
-FILTERED_SEQUENCES_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/2_filtered_sequences_evalue_DPxG"
-ALIGNMENTS_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/3_alignments_of_filtterd_hit_sequences"
+FILTERED_SEQUENCES_DIR="Path_to_2_filtered_sequences_evalue_DPxG"
+ALIGNMENTS_DIR="Path_to_3_alignments_of_filtterd_hit_sequences"
 
 # Cria o diretório de alinhamentos, se não existir
 mkdir -p "$ALIGNMENTS_DIR"
