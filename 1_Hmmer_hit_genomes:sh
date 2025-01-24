@@ -1,15 +1,15 @@
 #!/usr/bin/bash
 
 # # Definindo caminhos para todos os genomas
-# TIG_HMM_PROFILE="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_profile/TIGR03696.hmm"
+# TIG_HMM_PROFILE="Path_to_Hmmer_profile/TIGR03696.hmm"
 
 # # Hmmer on genomes
-# APIBACTER_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Apibacter"
-# GILLIAMELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Gilliamella"
-# FRISCHELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Frischella"
-# SNODGRASSELLA_DIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Genomic_data/Snodgrassella"
+# APIBACTER_DIR="Path_to_Genomic_data/Apibacter"
+# GILLIAMELLA_DIR="Path_to_Genomic_data/Gilliamella"
+# FRISCHELLA_DIR="Path_to_Genomic_data/Frischella"
+# SNODGRASSELLA_DIR="Path_to_Genomic_data/Snodgrassella"
 
-# OUTDIR="/media/share/MGS/VM_data/mmoreira/Projects/Distribution_of_RHS_toxins_in_metagenomes/Hmmer_hits_genomes"
+# OUTDIR="Path_to_Hmmer_hits_genomes"
 
 # PROTEIN_DATA=(
 #     "$APIBACTER_DIR"
